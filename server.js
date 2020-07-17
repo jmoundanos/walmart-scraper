@@ -1,20 +1,20 @@
 const express = require("express");
-//const routes = require("./routes");
+const routes = require("./routes");
 const mongoose = require("mongoose");
 const cheerio = require("cheerio");
 const axios = require("axios");
 const PORT = process.env.PORT || 3001;
 const app = express();
 
-
+//Middleware
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
+//Static assets
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
 }
-//app.use(routes);
-
+app.use(routes);
+//database
 mongoose.connect(
     process.env.MONGODB_URI || "mongodb://localhost/walmart-scraper",{useNewUrlParser: true}
     
