@@ -25,7 +25,7 @@ mongoose.set("useCreateIndex", true);
 // A GET route for scraping the website
 app.get("/scrape", function(req, res) {
   // First, we grab the body of the html with axios
-  axios.get("http://www.walmart.com/browse/toys/lego/4171_4186_1105635_2927326").then(function(response) {
+  axios.get("http://www.walmart.com/browse/toys/lego/4171_4186_1105635_2927326?page=3").then(function(response) {
   // Then, we load that into cheerio and save it to $ for a shorthand selector
     var $ = cheerio.load(response.data);
   // 
@@ -34,7 +34,7 @@ app.get("/scrape", function(req, res) {
       var result = {};
       result.product_title = $(this)
         .text();
-          
+      console.log(result);  
   
   db.Item.create(result)
         .then(function(dbItem) {
